@@ -21,10 +21,11 @@ export default function CustomInput({
   disabled,
 }: Props) {
   return (
-    <div>
-      <span>{title}</span>
+    <div >
+      <span style={{fontWeight:'600',textTransform:'uppercase'}}>{title}</span>
       <TextField
-        sx={{ width: "100%" }}
+      size="small"
+        sx={{ width: "100%" ,background:'#fff'}}
         onChange={(e) => onChange(e)}
         placeholder={placeHolder}
         name={name}

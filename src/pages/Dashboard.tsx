@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import styles from "./styles.module.scss";
 import CustomSelection from "../Component/CustomSelection";
 import CustomTable from "../Component/CustomTable";

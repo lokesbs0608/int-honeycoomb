@@ -1,4 +1,4 @@
-import React from "react";
+
 import styles from "./styles.module.scss";
 import UserImg from "../assets/img/userImg.png";
 import SettingIcon from "../assets/img/settings.png";

@@ -1,10 +1,10 @@
-import React from "react";
+
 import SideBar from "./SideBar";
 import Header from "./Header";
 import Router from "../router";
 import styles from "./styles.module.scss";
 
-const Layout = ({ props }: any) => {
+const Layout = () => {
   return (
     <div className="d-flex overflowX-hidden">
       <SideBar />
