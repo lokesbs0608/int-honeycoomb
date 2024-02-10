@@ -1,0 +1,30 @@
+.dashboard_bg {
+  background: #e8f9f7;
+  border-radius: 20px;
+  max-height: 500px;
+  min-height: 650px;
+  margin-top: 40px;
+}
+.filter_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding:60px 50px;
+
+  .section1 {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #0000001a;
+    width: 65%;
+    font-weight: 600;
+    font-size: 24px;
+  }
+  .section2 {
+    padding-bottom: 20px;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    margin: 5px;
+    justify-content: flex-end;
+  }
+}

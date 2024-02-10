@@ -11,29 +11,31 @@ button:not(:disabled) {
   background-color: #007fff !important;
   color: #fff !important;
 }
-h2{
+
+h2 {
   font-weight: 600;
 }
-
-
 
 /* do not group these rules */
 *::-webkit-input-placeholder {
   color: #fff;
   padding-left: 10px;
 }
+
 *:-moz-placeholder {
   /* FF 4-18 */
   color: #fff;
   opacity: 1;
   padding-left: 10px;
 }
+
 *::-moz-placeholder {
   /* FF 19+ */
   color: #fff;
   opacity: 1;
   padding-left: 10px;
 }
+
 *:-ms-input-placeholder {
   /* IE 10+ */
   color: #fff;
@@ -41,6 +43,7 @@ h2{
   text-align: right;
   padding-left: 10px;
 }
+
 *::-ms-input-placeholder {
   /* Microsoft Edge */
   color: #fff;
@@ -48,6 +51,7 @@ h2{
   text-align: right;
   padding-left: 10px;
 }
+
 *::placeholder {
   /* modern browser */
   color: #fff;
@@ -57,7 +61,8 @@ h2{
 }
 
 .container {
-  max-width: 208px;    /*adjust it*/
+  max-width: 208px;
+  /*adjust it*/
   margin: auto;
   position: relative;
   display: inline-block;
@@ -76,4 +81,26 @@ h2{
   position: absolute;
   top: 2px;
   right: 25px;
+}
+
+select {
+  border-radius: 20px;
+  padding: 7px;
+  padding-left: 20px;
+  padding-right: 35px;
+  outline: none;
+  background: rgba(0, 0, 0, 0) url(/src/assets/img/downArrow.png) no-repeat
+    scroll calc(87% + 2px) center/12px auto;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  font-weight: 500;
+}
+
+option {
+  padding: 20px;
+  color: #fff;
+  background-color: #135d72;
+  border-radius: 10px;
 }

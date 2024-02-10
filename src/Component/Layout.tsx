@@ -11,7 +11,7 @@ const Layout = ({ props }: any) => {
       <div className="vw-100 vh-100 overflowY-hidden">
         <Header />
         <div className="my-2 bg-panel panel-height p-2 ">
-          <div className={styles.header_container} >
+          <div className={styles.body_container} >
             <Router />
           </div>
         </div>

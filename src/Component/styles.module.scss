@@ -36,7 +36,7 @@
 }
 
 .header_container {
-  padding: 3rem 2rem;
+  padding: 3rem 3rem 0rem 2rem;
 
   .outer {
     border-radius: 58px;
@@ -70,4 +70,7 @@
     border: 0px solid;
     padding-left: 20px;
   }
+}
+.body_container{
+  padding: 20px 2rem;
 }
