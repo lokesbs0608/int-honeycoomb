@@ -1,13 +1,21 @@
 import React from "react";
 
-const CustomSelection = () => {
+
+
+interface Props {
+  options:any;
+  onchange:(e:any)=>void;
+}
+
+const CustomSelection = ({options,onchange}:Props) => {
   return (
     <div>
-      <select  name="cars" id="cars">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="opel">Opel</option>
-        <option value="audi">Audi</option>
+      <select onChange={(e)=>onchange(e)}  name="cars" id="cars">
+        {options.map((item:any,index:number)=>{
+          return(
+            <option key={index} value={item}>{item}</option>
+          )
+        })}
       </select>
     </div>
   );
