@@ -1,0 +1,13 @@
+#button {
+  background-color: #007fff !important;
+  color: #fff !important;
+}
+
+[type="button"]:not(:disabled),
+[type="reset"]:not(:disabled),
+[type="submit"]:not(:disabled),
+button:not(:disabled) {
+  cursor: pointer;
+  background-color: #007fff !important;
+  color: #fff !important;
+}
