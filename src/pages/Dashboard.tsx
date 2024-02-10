@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import CustomSelection from "../Component/CustomSelection";
+import CustomTable from "../Component/CustomTable";
 
 const Dashboard = () => {
 const [selectedStatus,setSelectedStatus] =useState('Status');
@@ -25,6 +26,9 @@ const Tasks =['Task',]
             </div>
           </div>
         </div>
+        <div className={styles.table_container}>
+            <CustomTable/>
+          </div>
       </div>
     </div>
   );

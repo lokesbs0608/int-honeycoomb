@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding:60px 50px;
+  padding: 60px 50px;
 
   .section1 {
     padding-bottom: 20px;
@@ -27,4 +27,10 @@
     margin: 5px;
     justify-content: flex-end;
   }
+}
+.table_container {
+  width: 100%;
+  padding: 0px 50px;
+  overflow-x: scroll;
+  height: 445px !important;
 }
