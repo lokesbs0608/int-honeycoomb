@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { Link, useLocation } from "react-router-dom";
 import SearchBarInput from "./SearchBarInput";
@@ -21,7 +21,7 @@ const Header = () => {
     <div className={styles.header_container}>
       <div className={styles.outer}>
         <div>
-          {headerMenu.map((item, index) => {
+          {headerMenu.map((item) => {
             return (
               <Link
                 className={`${

@@ -4,8 +4,8 @@ import CustomSelection from "../Component/CustomSelection";
 import CustomTable from "../Component/CustomTable";
 
 const Dashboard = () => {
-const [selectedStatus,setSelectedStatus] =useState('Status');
-const [selectedTask,setSelectedTask] =useState('Task')
+const [,setSelectedStatus] =useState('Status');
+const [,setSelectedTask] =useState('Task')
 
 const Status =['Status','Closed','Pending','On Hold','In progress','Done','Waiting for review']
 const Tasks =['Task',]
