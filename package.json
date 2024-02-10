@@ -20,7 +20,8 @@
     "react-bootstrap": "^2.10.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^5.3.4",
-    "react-virtuoso": "^4.6.3"
+    "react-virtuoso": "^4.6.3",
+    "sass": "^1.70.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.55",

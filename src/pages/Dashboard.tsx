@@ -3,7 +3,7 @@ import React from 'react'
 const Dashboard = () => {
   return (
     <div>
-      Dashboard
+      <h2>Welcome to task  Management system</h2>
     </div>
   )
 }

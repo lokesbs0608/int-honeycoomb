@@ -1,0 +1,73 @@
+.sidebar_container {
+  min-width: 15%;
+  background: #4fd1c521;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 100px 10px;
+}
+
+.user_img {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user_name {
+  font-weight: 400;
+  font-size: 24px;
+}
+.side_bar_option_controller {
+  img {
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    cursor: pointer;
+  }
+  .options {
+    font-size: 13px;
+    font-weight: 400;
+    cursor: pointer;
+  }
+}
+
+.header_container {
+  padding: 3rem 2rem;
+
+  .outer {
+    border-radius: 58px;
+    background-color: #135d72;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .notActive {
+    text-decoration: none;
+    color: #b5b5b5;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .activePath {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+  }
+}
+.Search_bar_input_container{
+  min-width: 300px;
+  input{
+    outline: none !important;
+    background-color: #427d8e;
+    border-radius: 58px;
+    width: 100%;    
+    color: #fff !important;
+    border: 0px solid;
+    padding-left: 20px;
+  }
+}
