@@ -59,7 +59,9 @@ const subTask = ({ open, onClose, onCreate, data }: Props) => {
   };
 
   const addTask = () => {
-    setValues({ ...values, id: generateUUID() });
+    if (!values?.id) {
+      setValues({ ...values, id: generateUUID() });
+    }
     if (
       values?.id &&
       values.title &&

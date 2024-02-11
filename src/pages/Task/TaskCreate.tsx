@@ -19,6 +19,8 @@ const TaskEdit = () => {
   const taskId = queryParam.get("id");
   const [user, setUser] = useState<any>();
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [isSubTaskEditing, setIsSubTaskEditing] = useState(false);
+
   const [values, setValues] = useState<any>({
     due_date: "",
     duration: "",
@@ -65,12 +67,21 @@ const TaskEdit = () => {
 
   const [subTaskModalOpen, setSubTaskModalOpen] = useState(false);
 
-  const handleSubTask = (data: any) => {
-    console.log(values?.sub_task);
+  const handleSubTask = async (data: any) => {
     let temp = values?.sub_task;
-    temp.push(data);
+    console.log(temp.includes(data));
+    if (isSubTaskEditing) {
+      temp = temp.map((item: any) => {
+        if (item?.id === data?.id) {
+          return { ...item, ...data };
+        }
+      });
+    } else {
+      temp.push(data);
+    }
 
     setValues({ ...values, sub_task: temp });
+    setSubTaskModalOpen(false);
   };
 
   const getTaskDetails = () => {
@@ -85,6 +96,7 @@ const TaskEdit = () => {
   const handleSubTaskChange = (data: any) => {
     setSubValues(data);
     setSubTaskModalOpen(true);
+    setIsSubTaskEditing(true);
   };
 
   useEffect(() => {
@@ -206,7 +218,9 @@ const TaskEdit = () => {
       <SubTask
         onCreate={(data: any) => handleSubTask(data)}
         open={subTaskModalOpen}
-        onClose={() => setSubTaskModalOpen(false)}
+        onClose={() => {
+          setSubTaskModalOpen(false), setIsSubTaskEditing(false);
+        }}
         data={subValues}
       />
       <div className={styles.dashboard_bg}>

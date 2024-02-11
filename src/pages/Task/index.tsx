@@ -31,6 +31,7 @@ const Task = () => {
     files: [],
     sub_task: [],
   });
+  const [isSubTaskEditing, setIsSubTaskEditing] = useState(false);
 
   const handleTaskDetailsChange = (e: any) => {
     let { name, value } = e.target;
@@ -72,18 +73,25 @@ const Task = () => {
 
   const [subTaskModalOpen, setSubTaskModalOpen] = useState(false);
 
-  const handleSubTask = (data: any) => {
-    console.log(values?.sub_task);
+  const handleSubTask = async (data: any) => {
     let temp = values?.sub_task;
-    temp.push(data);
-
+    if (isSubTaskEditing) {
+      temp = temp.map((item: any) => {
+        if (item?.id === data?.id) {
+          return { ...item, ...data };
+        }
+      });
+    } else {
+      temp.push(data);
+    }
     setValues({ ...values, sub_task: temp });
+    setSubTaskModalOpen(false);
   };
 
   const handleSubTaskChange = (data: any) => {
     setSubValues(data);
     setSubTaskModalOpen(true);
-    alert('yes')
+    setIsSubTaskEditing(true);
   };
 
   useEffect(() => {
@@ -198,7 +206,9 @@ const Task = () => {
       <SubTask
         onCreate={(data: any) => handleSubTask(data)}
         open={subTaskModalOpen}
-        onClose={() => setSubTaskModalOpen(false)}
+        onClose={() => {
+          setSubTaskModalOpen(false), setIsSubTaskEditing(false);
+        }}
         data={subValues}
       />
       <div className={styles.dashboard_bg}>
