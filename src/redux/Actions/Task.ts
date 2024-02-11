@@ -1,11 +1,10 @@
-export const UPDATE_TASK = "UPDATE_TASK";
+export const ADD_TASK = "ADD_TASK";
 
-import {Task} from '../../../types'
+import { Task } from "../../../types";
 
-
-export interface AddTaskAction{
-    type:typeof UPDATE_TASK;
-    payload:Task
-}
-
-export type TaskActionType = AddTaskAction ;
+export const ADD_TASK_ACTION = (data: Task) => {
+  return {
+    type: ADD_TASK,
+    payload: data,
+  };
+};

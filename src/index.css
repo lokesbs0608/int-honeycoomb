@@ -105,27 +105,39 @@ option {
   border-radius: 10px;
 }
 
-table{
+table {
   width: 100%;
-  td{
+  td {
     padding-top: 15px;
   }
 }
 
-thead{
+thead {
   position: sticky;
   top: 0;
-  background-color: #E8F9F7;
+  background-color: #e8f9f7;
 }
-tbody{
+tbody {
   height: 200px !important;
   overflow: scroll;
 }
 ::-webkit-scrollbar {
-  width: 0;  /* Remove scrollbar space */
-  background: transparent;  /* Optional: just make scrollbar invisible */
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
 }
 /* Optional: show position indicator in red */
 ::-webkit-scrollbar-thumb {
-  background: #FF0000;
+  background: #ff0000;
+}
+.green_status {
+  color: rgba(26, 147, 46, 1);
+  background: rgba(26, 147, 46, 0.18);
+}
+.red_status {
+  background: rgba(230, 95, 43, 0.18);
+  color: rgba(230, 95, 43, 1);
+}
+.yellow_status{
+  background-color: rgba(223, 199, 92, 0.18);
+  color: rgb(240, 196, 1);;
 }

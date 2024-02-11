@@ -9,6 +9,7 @@ interface Props {
   value?: string;
   type?: string;
   disabled?: any;
+  multiline?:boolean
 }
 
 export default function CustomInput({
@@ -19,6 +20,7 @@ export default function CustomInput({
   value,
   type,
   disabled,
+  multiline
 }: Props) {
   return (
     <div >
@@ -34,6 +36,8 @@ export default function CustomInput({
         id="outlined-required"
         value={value}
         type={type}
+        multiline={multiline}
+        rows={15}
       />
     </div>
   );
