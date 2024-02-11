@@ -3,7 +3,7 @@ import CustomInput from "../../Component/CustomInput";
 import DragDrop from "../../Component/DropZone";
 import Button from "@mui/material/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
 import { UPDATE_TASK_ACTION } from "../../redux/Actions/Task";
 import SubTask from "./subTask.tsx";
 import CustomTable from "../../Component/CustomTable.tsx";
@@ -18,7 +18,16 @@ const TaskEdit = () => {
   const selector: any = useSelector<any>((state) => state.Task);
   const taskId = queryParam.get("id");
   const [user, setUser] = useState<any>();
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
   const [values, setValues] = useState<any>({
+    due_date: "",
+    duration: "",
+    status: "Pending",
+    id: 0,
+    files: [],
+    sub_task: [],
+  });
+  const [subValues, setSubValues] = useState<any>({
     due_date: "",
     duration: "",
     status: "Pending",
@@ -72,7 +81,12 @@ const TaskEdit = () => {
       }
     });
   };
-  console.log(values);
+
+  const handleSubTaskChange = (data: any) => {
+    setSubValues(data);
+    setSubTaskModalOpen(true);
+  };
+
   useEffect(() => {
     let tempUser = UserData.User;
     console.log(tempUser);
@@ -172,6 +186,15 @@ const TaskEdit = () => {
             <Button onClick={addTask}>Edit Task</Button>
             <Button
               onClick={() => {
+                setSubValues({
+                  due_date: "",
+                  duration: "",
+                  status: "Pending",
+                  id: 0,
+                  files: [],
+                  sub_task: [],
+                });
+                forceUpdate();
                 setSubTaskModalOpen(true);
               }}
             >
@@ -184,10 +207,15 @@ const TaskEdit = () => {
         onCreate={(data: any) => handleSubTask(data)}
         open={subTaskModalOpen}
         onClose={() => setSubTaskModalOpen(false)}
+        data={subValues}
       />
       <div className={styles.dashboard_bg}>
         <div className={`   py-3 ${styles.table_container}`}>
-          <CustomTable data={values?.sub_task} />
+          <CustomTable
+            returnSubTaskData={(data) => handleSubTaskChange(data)}
+            isSubTaskTable={true}
+            data={values?.sub_task}
+          />
         </div>
       </div>
     </div>

@@ -6,6 +6,8 @@ import { useState } from "react";
 
 interface Props {
   data: any;
+  isSubTaskTable?: boolean;
+  returnSubTaskData?: (e: any) => void;
 }
 
 const Status = [
@@ -18,7 +20,7 @@ const Status = [
   "Waiting for review",
 ];
 
-const CustomTable = ({ data }: Props) => {
+const CustomTable = ({ data, isSubTaskTable, returnSubTaskData }: Props) => {
   const dispatch = useDispatch();
   const [, setValues] = useState<any>({
     due_date: "",
@@ -95,9 +97,23 @@ const CustomTable = ({ data }: Props) => {
             data.map((data: any) => {
               return (
                 <tr>
-                  <td scope="row">
-                    <Link to={`/task-details?id=${data?.id}`}>{data?.id}</Link>
-                  </td>
+                  {!isSubTaskTable && (
+                    <td scope="row">
+                      <Link to={`/task-details?id=${data?.id}`}>
+                        {data?.id}
+                      </Link>
+                    </td>
+                  )}
+
+                  {isSubTaskTable && returnSubTaskData && (
+                    <td
+                      onClick={() => returnSubTaskData(data)}
+                      style={{ textDecoration: "underline", color: "blue" }}
+                      scope="row"
+                    >
+                      {data?.id}
+                    </td>
+                  )}
                   <td scope="row">{data?.title}</td>
                   <td scope="row">{data?.Start_Date}</td>
                   <td scope="row">{data?.End_Date}</td>

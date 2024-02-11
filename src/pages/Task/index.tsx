@@ -3,7 +3,7 @@ import CustomInput from "../../Component/CustomInput";
 import DragDrop from "../../Component/DropZone";
 import Button from "@mui/material/Button/Button";
 import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
 import { ADD_TASK_ACTION } from "../../redux/Actions/Task";
 import SubTask from "./subTask.tsx";
 import CustomTable from "../../Component/CustomTable.tsx";
@@ -12,9 +12,18 @@ import CustomSelection from "../../Component/CustomSelection.tsx";
 
 const Task = () => {
   const dispatch = useDispatch();
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
   // const selector = useSelector((state) => state);
   const [user, setUser] = useState<any>();
   const [values, setValues] = useState<any>({
+    due_date: "",
+    duration: "",
+    status: "Pending",
+    id: 0,
+    files: [],
+    sub_task: [],
+  });
+  const [subValues, setSubValues] = useState<any>({
     due_date: "",
     duration: "",
     status: "Pending",
@@ -39,7 +48,7 @@ const Task = () => {
       values.End_Date
     ) {
       dispatch(ADD_TASK_ACTION(values));
-      alert("Task Added");;
+      alert("Task Added");
     } else {
       alert("Fil The Details");
     }
@@ -71,12 +80,18 @@ const Task = () => {
     setValues({ ...values, sub_task: temp });
   };
 
+  const handleSubTaskChange = (data: any) => {
+    setSubValues(data);
+    setSubTaskModalOpen(true);
+    alert('yes')
+  };
+
   useEffect(() => {
     let tempUser = UserData.User;
     console.log(tempUser);
     setUser(tempUser);
   }, []);
-  console.log(user);
+
   return (
     <div>
       <div>
@@ -163,6 +178,15 @@ const Task = () => {
             <Button onClick={addTask}>Create Task</Button>
             <Button
               onClick={() => {
+                setSubValues({
+                  due_date: "",
+                  duration: "",
+                  status: "Pending",
+                  id: 0,
+                  files: [],
+                  sub_task: [],
+                });
+                forceUpdate();
                 setSubTaskModalOpen(true);
               }}
             >
@@ -175,10 +199,15 @@ const Task = () => {
         onCreate={(data: any) => handleSubTask(data)}
         open={subTaskModalOpen}
         onClose={() => setSubTaskModalOpen(false)}
+        data={subValues}
       />
       <div className={styles.dashboard_bg}>
         <div className={`   py-3 ${styles.table_container}`}>
-          <CustomTable data={values?.sub_task} />
+          <CustomTable
+            returnSubTaskData={(data) => handleSubTaskChange(data)}
+            isSubTaskTable={true}
+            data={values?.sub_task}
+          />
         </div>
       </div>
     </div>
