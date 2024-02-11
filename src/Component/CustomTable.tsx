@@ -17,7 +17,7 @@ const Status = [
   "On Hold",
   "In progress",
   "Done",
-  "Waiting for review",
+  "WFR",
 ];
 
 const CustomTable = ({ data, isSubTaskTable, returnSubTaskData }: Props) => {

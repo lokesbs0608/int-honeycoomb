@@ -17,7 +17,7 @@ const Dashboard = () => {
     "On Hold",
     "In progress",
     "Done",
-    "Waiting for review",
+    "WFR",
   ];
   const Tasks = ["Task"];
 
