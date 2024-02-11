@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import CustomSelection from "../Component/CustomSelection";
 import CustomTable from "../Component/CustomTable";
 import { useSelector } from "react-redux";
 
 const Dashboard = () => {
-  const selector = useSelector((state) => state?.Task);
+  const selector:any = useSelector<any>((state) => state);
   const [, setSelectedStatus] = useState("Status");
   const [, setSelectedTask] = useState("Task");
+  const [taskTable, setTaskTable] = useState<any>();
 
   const Status = [
     "Status",
@@ -20,7 +21,12 @@ const Dashboard = () => {
   ];
   const Tasks = ["Task"];
 
-  console.log(selector);
+  useEffect(() => {
+    if (selector) {
+      setTaskTable(selector?.Task?.task);
+    }
+  }, [selector]);
+  console.log(taskTable)
 
   return (
     <div>
@@ -44,7 +50,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className={styles.table_container}>
-          <CustomTable data={selector?.task} />
+          <CustomTable data={taskTable} />
         </div>
       </div>
     </div>

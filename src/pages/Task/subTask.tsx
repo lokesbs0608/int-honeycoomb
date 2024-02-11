@@ -2,8 +2,11 @@ import styles from "../styles.module.scss";
 import CustomInput from "../../Component/CustomInput";
 import DragDrop from "../../Component/DropZone";
 import Button from "@mui/material/Button/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "@mui/material";
+import UserData from "../../data/user.json";
+import CustomSelection from "../../Component/CustomSelection.tsx";
+
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -22,6 +25,7 @@ interface Props {
 }
 const subTask = ({ open, onClose, onCreate }: Props) => {
     const handleClose = () => onClose();
+    const [user, setUser] = useState<any>();
     const [values, setValues] = useState<any>({
         due_date: "",
         duration: "",
@@ -68,6 +72,12 @@ const subTask = ({ open, onClose, onCreate }: Props) => {
         }
         return uuid;
       }
+      useEffect(() => {
+        let tempUser = UserData.User;
+        console.log(tempUser);
+        setUser(tempUser);
+      }, []);
+      console.log(user);
     return (
         <Modal
             open={open}
@@ -89,23 +99,33 @@ const subTask = ({ open, onClose, onCreate }: Props) => {
                             />
                         </div>
                         <div className="col-md-4 col-lg-3">
-                            <CustomInput
-                                id="assigned_to"
-                                placeHolder="Assignee"
-                                title="Assignee"
-                                name="assigned_to"
-                                onChange={handleTaskDetailsChange}
-                            />
-                        </div>
-                        <div className="col-md-4 col-lg-3">
-                            <CustomInput
-                                id="reporting_to"
-                                placeHolder="Reporting to"
-                                title="Reporting"
-                                name="reporting_to"
-                                onChange={handleTaskDetailsChange}
-                            />
-                        </div>
+              <div style={{ width: "100%" }}>
+                <span style={{ fontWeight: "600", textTransform: "uppercase" }}>
+                  Assignee
+                </span>{" "}
+                <br />
+                <CustomSelection
+                  options={user}
+                  onchange={(e: any) =>
+                    setValues({ ...values, assigned_to: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+            <div className="col-md-4 col-lg-3">
+              <div style={{ width: "100%" }}>
+                <span style={{ fontWeight: "600", textTransform: "uppercase" }}>
+                  Reporting
+                </span>{" "}
+                <br />
+                <CustomSelection
+                  options={user}
+                  onchange={(e: any) =>
+                    setValues({ ...values, reporting_to: e.target.value })
+                  }
+                />
+              </div>
+            </div>
                         <div className="col-md-4   col-lg-3">
                             <div className="row">
                                 <div className="col-6">
