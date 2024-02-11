@@ -3,13 +3,21 @@ import CustomInput from "../../Component/CustomInput";
 import DragDrop from "../../Component/DropZone";
 import Button from "@mui/material/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ADD_TASK_ACTION } from "../../redux/Actions/Task";
 import SubTask from "./subTask.tsx";
+import CustomTable from "../../Component/CustomTable.tsx";
+import UserData from "../../data/user.json";
+import CustomSelection from "../../Component/CustomSelection.tsx";
+import { useLocation } from "react-router-dom";
 
 const TaskEdit = () => {
   const dispatch = useDispatch();
-  const selector = useSelector((state) => state);
+  const Location = useLocation();
+  const queryParam = new URLSearchParams(Location.search);
+  const selector: any = useSelector<any>((state) => state.Task);
+  const taskId = queryParam.get("id");
+  const [user, setUser] = useState<any>();
   const [values, setValues] = useState<any>({
     due_date: "",
     duration: "",
@@ -65,17 +73,32 @@ const TaskEdit = () => {
     setValues({ ...values, files: temp });
   };
 
-
   const [subTaskModalOpen, setSubTaskModalOpen] = useState(false);
 
   const handleSubTask = (data: any) => {
-    console.log( values?.sub_task)
+    console.log(values?.sub_task);
     let temp = values?.sub_task;
     temp.push(data);
- 
+
     setValues({ ...values, sub_task: temp });
   };
-  console.log(selector);
+
+  const getTaskDetails = () => {
+    let temp = selector.task;
+    temp.map((item: any) => {
+      if (item?.id === taskId) {
+        setValues(item);
+      }
+    });
+  };
+console.log(values)
+  useEffect(() => {
+    let tempUser = UserData.User;
+    console.log(tempUser);
+    setUser(tempUser);
+    getTaskDetails();
+  }, [Location]);
+
   return (
     <div>
       <div>
@@ -89,25 +112,38 @@ const TaskEdit = () => {
                 title="Task title"
                 name="title"
                 onChange={handleTaskDetailsChange}
+                value={values?.title}
               />
             </div>
             <div className="col-md-4 col-lg-3">
-              <CustomInput
-                id="assigned_to"
-                placeHolder="Assignee"
-                title="Assignee"
-                name="assigned_to"
-                onChange={handleTaskDetailsChange}
-              />
+              <div style={{ width: "100%" }}>
+                <span style={{ fontWeight: "600", textTransform: "uppercase" }}>
+                  Assignee
+                </span>{" "}
+                <br />
+                <CustomSelection
+                  value={values?.assigned_to}
+                  options={user}
+                  onchange={(e: any) =>
+                    setValues({ ...values, assigned_to: e.target.value })
+                  }
+                />
+              </div>
             </div>
             <div className="col-md-4 col-lg-3">
-              <CustomInput
-                id="reporting_to"
-                placeHolder="Reporting to"
-                title="Reporting"
-                name="reporting_to"
-                onChange={handleTaskDetailsChange}
-              />
+              <div style={{ width: "100%" }}>
+                <span style={{ fontWeight: "600", textTransform: "uppercase" }}>
+                  Reporting
+                </span>{" "}
+                <br />
+                <CustomSelection
+                  value={values?.reporting_to}
+                  options={user}
+                  onchange={(e: any) =>
+                    setValues({ ...values, reporting_to: e.target.value })
+                  }
+                />
+              </div>
             </div>
             <div className="col-md-4   col-lg-3">
               <div className="row">
@@ -119,6 +155,7 @@ const TaskEdit = () => {
                     name="Start_Date"
                     onChange={handleTaskDetailsChange}
                     type="date"
+                    value={values?.Start_Date}
                   />
                 </div>
                 <div className="col-6">
@@ -129,6 +166,7 @@ const TaskEdit = () => {
                     name="End_Date"
                     onChange={handleTaskDetailsChange}
                     type="date"
+                    value={values?.End_Date}
                   />
                 </div>
               </div>
@@ -145,6 +183,7 @@ const TaskEdit = () => {
                 multiline={true}
                 onChange={handleTaskDetailsChange}
                 type="date"
+                value={values?.Comments}
               />
             </div>
           </div>
@@ -165,6 +204,11 @@ const TaskEdit = () => {
         open={subTaskModalOpen}
         onClose={() => setSubTaskModalOpen(false)}
       />
+      <div className={styles.dashboard_bg}>
+        <div className={`   py-3 ${styles.table_container}`}>
+          <CustomTable data={values?.sub_task} />
+        </div>
+      </div>
     </div>
   );
 };

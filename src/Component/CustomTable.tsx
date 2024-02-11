@@ -1,4 +1,5 @@
 import CustomSelection from "./CustomSelection";
+import { Link } from "react-router-dom";
 
 interface Props {
   data: any;
@@ -51,12 +52,14 @@ const CustomTable = ({ data }: Props) => {
   };
 
   const calculateDuration = (start_date: string, end_date: string) => {
-    const date1:any = new Date(start_date);
-    const date2:any = new Date(end_date);
+    if (!start_date && !end_date) return { diffDays: "", diffTime: "" };
+    const date1: any = new Date(start_date);
+    const date2: any = new Date(end_date);
     const diffTime = Math.abs(date2 - date1);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return { diffDays, diffTime };
   };
+
   return (
     <div className="">
       <table className=" table-borderless">
@@ -77,19 +80,21 @@ const CustomTable = ({ data }: Props) => {
             data.map((data: any) => {
               return (
                 <tr>
-                  <td scope="row">{data?.id}</td>
+                  <td scope="row">
+                    <Link to={`/task-details?id=${data?.id}`}>{data?.id}</Link>
+                  </td>
                   <td scope="row">{data?.title}</td>
                   <td scope="row">{data?.Start_Date}</td>
                   <td scope="row">{data?.End_Date}</td>
                   <td scope="row">
-                    {
-                      calculateDuration(data?.Start_Date, data?.End_Date)
-                        ?.diffDays
-                    }Days
+                    {calculateDuration(data?.Start_Date, data?.End_Date)
+                      ?.diffDays || " "}
                   </td>
                   <td scope="row">{data?.End_Date}</td>
                   <td scope="row">{data?.reporting_to}</td>
-                  <td scope="row">{returnStatus(data?.status)}</td>
+                  <td scope="row">
+                    {data?.status ? returnStatus(data?.status) : ""}
+                  </td>
                 </tr>
               );
             })}
