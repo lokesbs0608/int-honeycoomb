@@ -39,15 +39,7 @@ const Task = () => {
       values.End_Date
     ) {
       dispatch(ADD_TASK_ACTION(values));
-      alert("Task Added");
-      setValues({
-        due_date: "",
-        duration: "",
-        status: "Pending",
-        id: 0,
-        files: [],
-        sub_task: [],
-      });
+      alert("Task Added");;
     } else {
       alert("Fil The Details");
     }

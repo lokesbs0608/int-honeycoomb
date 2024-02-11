@@ -1,5 +1,8 @@
+import { UPDATE_TASK_ACTION } from "../redux/Actions/Task";
 import CustomSelection from "./CustomSelection";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 interface Props {
   data: any;
@@ -16,15 +19,26 @@ const Status = [
 ];
 
 const CustomTable = ({ data }: Props) => {
-  console.log(data);
+  const dispatch = useDispatch();
+  const [, setValues] = useState<any>({
+    due_date: "",
+    duration: "",
+    status: "Pending",
+    id: 0,
+    files: [],
+    sub_task: [],
+  });
 
-  const handleStatus = (e: any) => {
-    console.log(e);
+  const handleStatus = (e: any, data: any) => {
+    let tempData = data;
+    tempData.status = e;
+    setValues(tempData);
+    dispatch(UPDATE_TASK_ACTION(tempData?.id, tempData));
   };
 
-  const returnStatus = (status: string) => {
-    const getColors = (status: string) => {
-      switch (status) {
+  const returnStatus = (data: any) => {
+    const getColors = (data: any) => {
+      switch (data?.status) {
         case "Closed":
           return "green_status";
         case "Pending":
@@ -45,7 +59,8 @@ const CustomTable = ({ data }: Props) => {
       >
         <CustomSelection
           options={Status}
-          onchange={(e: any) => handleStatus(e.target.value)}
+          value={data?.status}
+          onchange={(e: any) => handleStatus(e.target.value, data)}
         />
       </span>
     );
@@ -92,9 +107,7 @@ const CustomTable = ({ data }: Props) => {
                   </td>
                   <td scope="row">{data?.End_Date}</td>
                   <td scope="row">{data?.reporting_to}</td>
-                  <td scope="row">
-                    {data?.status ? returnStatus(data?.status) : ""}
-                  </td>
+                  <td scope="row">{data?.status ? returnStatus(data) : ""}</td>
                 </tr>
               );
             })}

@@ -26,7 +26,6 @@ const Dashboard = () => {
       setTaskTable(selector?.Task?.task);
     }
   }, [selector]);
-  console.log(taskTable)
 
   return (
     <div>

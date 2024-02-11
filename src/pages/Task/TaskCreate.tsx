@@ -4,7 +4,7 @@ import DragDrop from "../../Component/DropZone";
 import Button from "@mui/material/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { ADD_TASK_ACTION } from "../../redux/Actions/Task";
+import { UPDATE_TASK_ACTION } from "../../redux/Actions/Task";
 import SubTask from "./subTask.tsx";
 import CustomTable from "../../Component/CustomTable.tsx";
 import UserData from "../../data/user.json";
@@ -33,7 +33,6 @@ const TaskEdit = () => {
   };
 
   const addTask = () => {
-    setValues({ ...values, id: generateUUID() });
     if (
       values?.id &&
       values.title &&
@@ -42,30 +41,12 @@ const TaskEdit = () => {
       values?.Start_Date &&
       values.End_Date
     ) {
-      dispatch(ADD_TASK_ACTION(values));
-      alert("Task Added");
-      setValues({
-        due_date: "",
-        duration: "",
-        status: "Pending",
-        id: 0,
-        files: [],
-        sub_task: [],
-      });
+      dispatch(UPDATE_TASK_ACTION(values?.id, values));
+      alert("Task Edited");
     } else {
       alert("Fil The Details");
     }
   };
-  function generateUUID() {
-    let uuid = "";
-    const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrs tuvwxyz0123456789";
-    const charactersLength = characters.length;
-    for (let i = 0; i < 6; i++) {
-      uuid += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return uuid;
-  }
 
   const MultiFilesUrl = (url: string) => {
     let temp = values?.files;
@@ -91,7 +72,7 @@ const TaskEdit = () => {
       }
     });
   };
-console.log(values)
+  console.log(values);
   useEffect(() => {
     let tempUser = UserData.User;
     console.log(tempUser);
@@ -102,7 +83,7 @@ console.log(values)
   return (
     <div>
       <div>
-        <h2>Add Task Details</h2>
+        <h2>Edit Task Details</h2>
         <div className={styles.dashboard_bg}>
           <div className="row p-4">
             <div className="col-md-4 col-lg-3">
@@ -188,13 +169,13 @@ console.log(values)
             </div>
           </div>
           <div className="d-flex align-items-center justify-content-between mx-4 px-1">
-            <Button onClick={addTask}>Create Task</Button>
+            <Button onClick={addTask}>Edit Task</Button>
             <Button
               onClick={() => {
                 setSubTaskModalOpen(true);
               }}
             >
-              AddSub Task
+              Add Sub Task
             </Button>
           </div>
         </div>

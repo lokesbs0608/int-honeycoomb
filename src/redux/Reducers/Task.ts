@@ -1,5 +1,5 @@
 const TaskReducer = (
-  state = { task: [{ id: "" }] },
+  state = { task: [] },
   action: { type: any; payload: any }
 ) => {
   switch (action.type) {
@@ -9,11 +9,12 @@ const TaskReducer = (
         task: [...state.task, action.payload],
       };
     case "UPDATE_TASK":
+      const tempData = state.task.map((item: any) =>
+        item?.id === action.payload.taskId ? action.payload.UpdateTask : item
+      );
       return {
         ...state,
-        task: state.task.map((task) => {
-          task?.id === action.payload.taskId ? action.payload.UpdateTask : task;
-        }),
+        task: tempData,
       };
     default:
       return state;
